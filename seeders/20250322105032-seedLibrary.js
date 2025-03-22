@@ -61,21 +61,18 @@ module.exports = {
         { type: Sequelize.QueryTypes.SELECT }
       );
 
-      // Insert genres
       await queryInterface.bulkInsert('Genres', genresData);
       const genres = await queryInterface.sequelize.query(
         'SELECT * FROM "Genres";',
         { type: Sequelize.QueryTypes.SELECT }
       );
 
-      // Insert books
       await queryInterface.bulkInsert('Books', booksData);
 
-      // Associate books with genres manually
       const bookGenres = [
-        { bookId: 1, genreId: genres[0].id, createdAt: new Date(), updatedAt: new Date() }, // Harry Potter -> Fantasy
-        { bookId: 2, genreId: genres[0].id, createdAt: new Date(), updatedAt: new Date() }, // Game of Thrones -> Fantasy
-        { bookId: 2, genreId: genres[1].id, createdAt: new Date(), updatedAt: new Date() }  // Game of Thrones -> Drama
+        { bookId: 1, genreId: genres[0].id, createdAt: new Date(), updatedAt: new Date() },
+        { bookId: 2, genreId: genres[0].id, createdAt: new Date(), updatedAt: new Date() },
+        { bookId: 2, genreId: genres[1].id, createdAt: new Date(), updatedAt: new Date() }
       ];
       await queryInterface.bulkInsert('BookGenres', bookGenres);
     } catch (error) {
